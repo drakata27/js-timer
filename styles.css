@@ -1,0 +1,43 @@
+body {
+  background-color: aqua;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+form label {
+  color: navy;
+  margin: 10px;
+}
+
+form input {
+  margin: 10px;
+  border-radius: 12px;
+}
+
+.confirm-btn {
+  margin: 10px;
+  color: white;
+  background-color: navy;
+  border-radius: 12px;
+  text-transform: uppercase;
+}
+
+.deadline {
+  display: flex;
+}
+.deadline-format {
+  background: var(--clr-grey-1);
+  color: var(--clr-white);
+  margin-right: 1rem;
+  width: 5rem;
+  height: 5rem;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.deadline-format span {
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+}
