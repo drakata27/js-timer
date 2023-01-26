@@ -12,16 +12,30 @@
   <body>
     <h1>Timer</h1>
     <form>
-      <label for="time">Enter time period</label> <br />
-      <input id="time" /> <br />
-      <button type="button" class="confirm-btn">Confirm</button>
+      <!-- hours -->
+      <input id="h" /> <br />
+      <label for="h">H</label> <br />
+
+      <!-- mins -->
+      <input id="m" /> <br />
+      <label for="m">M</label> <br />
+
+      <!-- secs -->
+      <input id="s" /> <br />
+      <label for="s">S</label> <br />
+
+      <button type="button" class="start-btn">Start</button>
     </form>
+
+    <article class="timer-info">
+      <h4 class="timer-info-heading">Enter time period and confirm</h3>
+    </article>
 
     <div class="deadline">
       <!-- hours -->
       <div class="deadline-format">
         <div>
-          <h4 class="hours">34</h4>
+          <h4 class="hours">00</h4>
           <span>Hours</span>
         </div>
       </div>
@@ -29,7 +43,7 @@
       <!-- minutes -->
       <div class="deadline-format">
         <div>
-          <h4 class="minutes">34</h4>
+          <h4 class="minutes">00</h4>
           <span>Minutes</span>
         </div>
       </div>
@@ -37,7 +51,7 @@
       <!-- seconds -->
       <div class="deadline-format">
         <div>
-          <h4 class="seconds">34</h4>
+          <h4 class="seconds">00</h4>
           <span>Seconds</span>
         </div>
       </div>
