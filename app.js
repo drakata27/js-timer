@@ -19,22 +19,16 @@ let tempDay = tempDate.getDate();
 let tempHours = tempDate.getHours;
 let tempMinutes = tempDate.getMinutes;
 let tempSeconds = tempDate.getSeconds;
-tempHours = 0;
+
+// tempHours = 0;
 // initialisation of timer constant
-let timer = new Date(tempYear, tempMonth, tempDay, 15 + tempHours, 51, 0);
-// const timer = new Date(
-//   tempYear,
-//   tempMonth,
-//   tempDay,
-//   tempHours,
-//   tempMinutes,
-//   tempSeconds
-// );
+let timer = new Date(tempYear, tempMonth, tempDay, 14, 0, 0);
 
 // This is the time in the future that will be reached by the timer
 const selectedTime = timer.getTime();
 
 //Function to get the time that remains to reach the selectedTime
+
 function getRemainingTime() {
   //constant with the present time
   const now = new Date().getTime();
@@ -48,17 +42,28 @@ function getRemainingTime() {
   // 1d = 24hr
   // transforming the values in ms to one day, hour and min
   // values in miliseconds
+  // const oneDay = 24 * 60 * 60 * 1000;
+  // const oneHour = 60 * 60 * 1000;
+  // const oneMinute = 60 * 1000;
+
   const oneDay = 24 * 60 * 60 * 1000;
   const oneHour = 60 * 60 * 1000;
   const oneMinute = 60 * 1000;
+  const oneSecond = 1000;
 
   //calculate the values by getting the remainder of t and dividing it by the corresponding variable
-  let hours = Math.floor((t % oneDay) / oneHour);
-  let minutes = Math.floor((t % oneHour) / oneMinute);
-  let seconds = Math.floor((t % oneMinute) / 1000);
+  tempHours *= Math.floor((t % oneDay) / oneHour);
+  tempMinutes = Math.floor((t % oneHour) / oneMinute);
+  tempSeconds = Math.floor((t % oneMinute) / oneSecond);
+  // tempHours *= Math.floor((t % oneDay) / oneHour);
+  // tempMinutes = Math.floor(((t % oneHour) / oneMinute));
+  // tempSeconds = Math.floor((t % oneMinute) / oneSecond);
+
+  // var min=Math.floor(mySeconds/60);
+  // var sec=mySeconds-(min*60);
 
   // create array the holds the hours, minutes and second
-  const values = [hours, minutes, seconds];
+  const values = [tempHours, tempMinutes, tempSeconds];
 
   // function to format the items
   function format(item) {
@@ -78,38 +83,55 @@ function getRemainingTime() {
   if (t < 0) {
     clearInterval(countdown);
     deadline.innerHTML = `
-    <!-- hours -->
-    <div class="deadline-format">
-      <div>
-        <h4 class="hours">00</h4>
-        <span>Hours</span>
+      <!-- hours -->
+      <div class="deadline-format">
+        <div>
+          <h4 class="hours">00</h4>
+          <span>Hours</span>
+        </div>
       </div>
-    </div>
-    <!-- end of hours -->
-    <!-- minutes -->
-    <div class="deadline-format">
-      <div>
-        <h4 class="minutes">00</h4>
-        <span>Minutes</span>
+      <!-- end of hours -->
+      <!-- minutes -->
+      <div class="deadline-format">
+        <div>
+          <h4 class="minutes">00</h4>
+          <span>Minutes</span>
+        </div>
       </div>
-    </div>
-    <!-- end of minutes -->
-    <!-- seconds -->
-    <div class="deadline-format">
-      <div>
-        <h4 class="seconds">00</h4>
-        <span>Seconds</span>
+      <!-- end of minutes -->
+      <!-- seconds -->
+      <div class="deadline-format">
+        <div>
+          <h4 class="seconds">00</h4>
+          <span>Seconds</span>
+        </div>
       </div>
-    </div>
-    <!-- end of seconds -->`;
+      <!-- end of seconds -->`;
 
     // window.alert("Timer has expired");
   }
 }
+// let countdown = setInterval(getRemainingTime, 1000);
+// //set initial values
+// getRemainingTime();
 
 //countdown variable
-let countdown = setInterval(getRemainingTime, 1000);
-//set initial values
-getRemainingTime();
 
-// btn.addEventListener("click", () => {});
+//Testing
+let countdown;
+
+btn.addEventListener("click", () => {
+  countdown = setInterval(getRemainingTime, 1000);
+
+  tempHours = document.getElementById("h").value;
+  timer.setHours(tempHours);
+
+  tempMinutes = document.getElementById("m").value;
+  timer.setMinutes(tempMinutes);
+
+  tempSeconds = document.getElementById("s").value;
+  timer.setSeconds(tempSeconds);
+
+  //set initial values
+  getRemainingTime();
+});
