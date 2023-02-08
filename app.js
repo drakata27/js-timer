@@ -19,10 +19,11 @@ let tempDay = tempDate.getDate();
 let tempHours = tempDate.getHours;
 let tempMinutes = tempDate.getMinutes;
 let tempSeconds = tempDate.getSeconds;
-
-// tempHours = 0;
+let isRunning = false;
+let isClicked = false;
+tempHours = 0;
 // initialisation of timer constant
-let timer = new Date(tempYear, tempMonth, tempDay, 14, 0, 0);
+let timer = new Date(tempYear, tempMonth, tempDay, tempHours, 0, 0);
 
 // This is the time in the future that will be reached by the timer
 const selectedTime = timer.getTime();
@@ -46,21 +47,23 @@ function getRemainingTime() {
   // const oneHour = 60 * 60 * 1000;
   // const oneMinute = 60 * 1000;
 
+  // const oneDay = 24 * 60 * 60 * 1000;
+  // const oneHour = 60 * 60 * 1000;
+  // const oneMinute = 60 * 1000;
+  // const oneSecond = 1000;
+
   const oneDay = 24 * 60 * 60 * 1000;
-  const oneHour = 60 * 60 * 1000;
-  const oneMinute = 60 * 1000;
-  const oneSecond = 1000;
+  const oneHour = tempHours + 60 * 60 * 1000;
+  const oneMinute = tempMinutes + 60 * 1000;
+  const oneSecond = tempSeconds + 1000;
 
   //calculate the values by getting the remainder of t and dividing it by the corresponding variable
-  tempHours *= Math.floor((t % oneDay) / oneHour);
-  tempMinutes = Math.floor((t % oneHour) / oneMinute);
-  tempSeconds = Math.floor((t % oneMinute) / oneSecond);
-  // tempHours *= Math.floor((t % oneDay) / oneHour);
-  // tempMinutes = Math.floor(((t % oneHour) / oneMinute));
+  // tempHours = Math.floor((t % oneDay) / oneHour);
+  // tempMinutes = Math.floor((t % oneHour) / oneMinute);
   // tempSeconds = Math.floor((t % oneMinute) / oneSecond);
 
-  // var min=Math.floor(mySeconds/60);
-  // var sec=mySeconds-(min*60);
+  tempSeconds--;
+  updateInterfaceTime();
 
   // create array the holds the hours, minutes and second
   const values = [tempHours, tempMinutes, tempSeconds];
@@ -80,36 +83,36 @@ function getRemainingTime() {
   });
 
   // changes the heading when the timer has finished
-  if (t < 0) {
-    clearInterval(countdown);
-    deadline.innerHTML = `
-      <!-- hours -->
-      <div class="deadline-format">
-        <div>
-          <h4 class="hours">00</h4>
-          <span>Hours</span>
-        </div>
-      </div>
-      <!-- end of hours -->
-      <!-- minutes -->
-      <div class="deadline-format">
-        <div>
-          <h4 class="minutes">00</h4>
-          <span>Minutes</span>
-        </div>
-      </div>
-      <!-- end of minutes -->
-      <!-- seconds -->
-      <div class="deadline-format">
-        <div>
-          <h4 class="seconds">00</h4>
-          <span>Seconds</span>
-        </div>
-      </div>
-      <!-- end of seconds -->`;
+  // if (t < 0) {
+  //   clearInterval(countdown);
+  //   deadline.innerHTML = `
+  //     <!-- hours -->
+  //     <div class="deadline-format">
+  //       <div>
+  //         <h4 class="hours">00</h4>
+  //         <span>Hours</span>
+  //       </div>
+  //     </div>
+  //     <!-- end of hours -->
+  //     <!-- minutes -->
+  //     <div class="deadline-format">
+  //       <div>
+  //         <h4 class="minutes">00</h4>
+  //         <span>Minutes</span>
+  //       </div>
+  //     </div>
+  //     <!-- end of minutes -->
+  //     <!-- seconds -->
+  //     <div class="deadline-format">
+  //       <div>
+  //         <h4 class="seconds">00</h4>
+  //         <span>Seconds</span>
+  //       </div>
+  //     </div>
+  //      <!-- end of seconds -->`;
 
-    // window.alert("Timer has expired");
-  }
+  //   //   // window.alert("Timer has expired");
+  // }
 }
 // let countdown = setInterval(getRemainingTime, 1000);
 // //set initial values
@@ -121,6 +124,8 @@ function getRemainingTime() {
 let countdown;
 
 btn.addEventListener("click", () => {
+  isClicked = true;
+
   countdown = setInterval(getRemainingTime, 1000);
 
   tempHours = document.getElementById("h").value;
@@ -134,4 +139,27 @@ btn.addEventListener("click", () => {
 
   //set initial values
   getRemainingTime();
+  // if (!isRunning) {
+  //   clearInterval(countdown);
+  // }
 });
+
+function updateInterfaceTime() {
+  if (tempSeconds < 0) {
+    tempSeconds = 59;
+    tempMinutes--;
+  }
+
+  if (tempMinutes < 0) {
+    tempMinutes = 59;
+    tempHours--;
+  }
+
+  if (tempHours < 0) {
+    tempSeconds = 0;
+    tempMinutes = 0;
+    tempHours = 0;
+
+    clearInterval(countdown);
+  }
+}
